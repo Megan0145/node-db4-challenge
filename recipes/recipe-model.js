@@ -4,18 +4,19 @@
 // join ingredients as ing
 // on ri.ingredient_id = ing.ingredient_id
 // where r.recipe_id=1
-const db = require("../data/dbConfig")
+const db = require("../data/dbConfig");
 
 module.exports = {
-    getRecipes,
-    getShoppingList
-}
+  getRecipes,
+  getShoppingList,
+  getInstructions
+};
 
 function getRecipes() {
-    return db("recipes")
+  return db("recipes");
 }
 
-// select r.recipe_id, r.recipe_title, riq.quantity, ing.ingredient_title 
+// select r.recipe_id, r.recipe_title, riq.quantity, ing.ingredient_title
 // from recipes as r
 // join recipe_ingredient_quantities as riq
 // on r.recipe_id = riq.recipe_id
@@ -24,9 +25,25 @@ function getRecipes() {
 // where r.recipe_id=1;
 
 function getShoppingList(id) {
-    return db("recipes as r")
+  return db("recipes as r")
     .join("recipe_ingredient_quantities as riq", "r.recipe_id", "riq.recipe_id")
     .join("ingredients as ing", "riq.ingredient_id", "ing.ingredient_id")
-    .select("r.recipe_id", "r.recipe_title", "riq.quantity", "ing.ingredient_title")
-    .where({"r.recipe_id": id})
+    .select(
+      "r.recipe_id",
+      "r.recipe_title",
+      "riq.quantity",
+      "ing.ingredient_title"
+    )
+    .where({ "r.recipe_id": id });
+}
+
+// select recipe_id, step_number, content
+// from instructions
+// where recipe_id = 1
+// order by step_number;
+
+function getInstructions(id) {
+  return db("instructions")
+    .select("recipe_id", "step_number", "content")
+    .where({ recipe_id: id });
 }

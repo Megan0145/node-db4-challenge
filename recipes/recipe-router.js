@@ -20,10 +20,23 @@ router.get("/:id/shoppingList", (req, res) => {
       res.json(shoppingList);
     })
     .catch(err => {
+      res.status(500).json({
+        message: `Could not get shopping list for recipe with id of ${rewq.params.id} : ${err.message}`
+      });
+    });
+});
+
+router.get("/:id/instructions", (req, res) => {
+  recipes
+    .getInstructions(req.params.id)
+    .then(instructions => {
+      res.json(instructions);
+    })
+    .catch(err => {
       res
         .status(500)
         .json({
-          message: `Could not get shopping list for recipe with id of ${rewq.params.id} : ${err.message}`
+          message: `Could not get instructions for recipe wiht id of ${req.params.id}: ${err.message}`
         });
     });
 });
