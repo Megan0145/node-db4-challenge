@@ -50,8 +50,7 @@ exports.up = function(knex) {
       tbl
         .integer("step_number")
         .unsigned()
-        .notNullable()
-        .unique();
+        .notNullable();
       tbl.string("content", 128).notNullable();
     });
 };
