@@ -21,7 +21,7 @@ router.get("/recipes/:id/shoppingList", (req, res) => {
     })
     .catch(err => {
       res.status(500).json({
-        message: `Could not get shopping list for recipe with id of ${rewq.params.id} : ${err.message}`
+        message: `Could not get shopping list for recipe with id of ${req.params.id} : ${err.message}`
       });
     });
 });

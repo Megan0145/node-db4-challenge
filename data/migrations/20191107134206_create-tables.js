@@ -14,10 +14,10 @@ exports.up = function(knex) {
         .string("ingredient_title", 128)
         .notNullable()
         .unique();
+      tbl.string("measurement_units");
     })
 
     .createTable("recipe_ingredient_quantities", tbl => {
-      tbl.increments();
       tbl
         .integer("recipe_id")
         .unsigned()
@@ -34,7 +34,7 @@ exports.up = function(knex) {
         .inTable("ingredients")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      tbl.string("quantity", 128).notNullable();
+      tbl.decimal("quantity").notNullable();
     })
 
     .createTable("instructions", tbl => {
