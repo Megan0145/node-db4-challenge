@@ -4,3 +4,12 @@
 // join ingredients as ing
 // on ri.ingredient_id = ing.ingredient_id
 // where r.recipe_id=1
+const db = require("../data/dbConfig")
+
+module.exports = {
+    getRecipes
+}
+
+function getRecipes() {
+    return db("recipes")
+}
